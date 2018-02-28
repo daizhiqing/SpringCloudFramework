@@ -1,0 +1,58 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: @serviceUrl@
+    registryFetchIntervalSeconds: 5
+  instance:
+    preferIpAddress: true
+    instance-id: ${spring.cloud.client.ipAddress}:${spring.application.name}:${server.port}
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 90
+    metadata-map:
+      cluster: api
+spring:
+  application:
+    name: apigateway
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        serviceId: config
+      name: ${spring.application.name}
+      profile: @profile@
+  http:
+    multipart:
+      max-file-size: 20Mb
+      max-request-size: 20Mb
+
+zuul:
+  ignoredServices: "*"
+#  ignoredServices: *
+  ignored-patterns: /**/beans,/**/env,/**/refresh,/**/configprops,/**/logfile,/**/restart,/**/pause,/**/metrics,/**/dump,/**/autoconfig,/**/health,/**/hystrix/**
+  add-host-header: true
+  retryable: false
+  routes:
+    #API服务配置项目
+    api-coreapi: /coreapi/**
+    api-userapi: /userapi/**
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+        isolation:
+          thread:
+            timeoutInMilliseconds: 30000
+
+ribbon:
+    ReadTimeout: 30000
+    ConnectTimeout: 15000
+
+feign:
+  httpclient:
+    enabled: true
+management:
+  security:
+    enabled: false

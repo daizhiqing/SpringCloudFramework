@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/base.xml" /><jmxConfigurator/>
+	<!-- <include resource="org/springframework/boot/logging/logback/defaults.xml" 
+		/> <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender"> 
+		<encoder> <pattern>${CONSOLE_LOG_PATTERN}</pattern> <charset>utf8</charset> 
+		</encoder> </appender> -->
+	<appender name="dailyRollingFileAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>/logs/xcqb-server-config.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<FileNamePattern>/logs/xcqb-server-config.log-%d{yyyy-MM-dd}.%i
+			</FileNamePattern>
+			<!-- keep 30 days' worth of history -->
+			<maxHistory>365</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches 20MB -->
+				<maxFileSize>20MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} [%thread] %-5level
+				%logger{80}-%msg%n</Pattern>
+		</layout>
+	</appender>
+	<springProfile name="dev">
+		<root level="INFO">
+			<appender-ref ref="CONSOLE" />
+		</root>
+	</springProfile>
+	<springProfile name="test">
+		<root level="INFO">
+			<appender-ref ref="CONSOLE" />
+			<appender-ref ref="dailyRollingFileAppender" />
+		</root>
+	</springProfile>
+	<springProfile name="production">
+		<root level="INFO">
+			<appender-ref ref="CONSOLE" />
+			<appender-ref ref="dailyRollingFileAppender" />
+		</root>
+	</springProfile>
+</configuration>

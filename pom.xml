@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.dzq.springcloud</groupId>
+	<artifactId>springcloud</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<modules>
+		<module>module-base</module>
+		<module>api-gateway</module>
+        <module>server-eureka</module>
+        <module>server-config</module>
+    </modules>
+	<packaging>pom</packaging>
+
+	<name>SpringCloudFramework</name>
+	<description>SpringCloud Demo project for Spring Boot</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.10.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>Edgware.RELEASE</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<docker.image.namespace>dzqSC</docker.image.namespace>
+		<docker.registry.name>registry.xxxx.com:5000</docker.registry.name>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>${java.version}</source>
+						<target>${java.version}</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
+
+	<distributionManagement>
+		<!--这里配置maven私服仓库地址-->
+		<repository>
+			<id>xxx-releases</id>
+			<name>xxx Release Repository</name>
+			<url>http://mvn.xxx.com/repository/xxx-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>xxx-snapshots</id>
+			<name>xxx Snapshot Repository</name>
+			<url>http://mvn.xxx.com/repository/xxx-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+	<profiles>
+		<!-- 本机开发环境，默认激活 -->
+		<profile>
+			<id>host</id>
+			<properties>
+				<hostname>dev.renrenhua.com</hostname>
+				<serviceUrl>http://dev.renrenhua.com:4445/eureka/</serviceUrl>
+				<profile>dev</profile>
+				<label>develop</label>
+				<bulid.deploy>SNAPSHOT</bulid.deploy>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+	</profiles>
+</project>
