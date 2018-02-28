@@ -1,4 +1,4 @@
-package rabbit;
+package com.dzq.base.rabbit;
 
 import org.apache.http.util.TextUtils;
 import org.slf4j.Logger;
@@ -116,68 +116,5 @@ public class RabbitMQConfig {
 		return BindingBuilder.bind(queueUserAction()).to(ZuulExchange()).with(ExchangeQueue.Queue.EX_ZUUL_MQ_USER_ACTION);
 	}
 
-	/**
-	 * 配置后台消息交换机
-	 * @return
-	 */
-	@Bean
-	public DirectExchange webInnerExchange(){
-		return new DirectExchange(ExchangeQueue.Exchange.EXCHANGE_WEB_INNER, true, false);
-	}
-
-	/**
-	 * 配置后台消息队列
-	 * @return
-	 */
-	@Bean
-	public Queue webInnerPushQueue(){
-		return new Queue(ExchangeQueue.Queue.QUEUE_WEB_INNER_PUSH, true);
-	}
-	
-
-	/**
-	 * 将后台消息队列与交换机绑定
-	 * @return
-	 */
-	@Bean
-	public Binding bindingWebInnerPush(){
-		return BindingBuilder.bind(webInnerPushQueue()).to(webInnerExchange()).with(ExchangeQueue.Queue.QUEUE_WEB_INNER_PUSH);
-	}
-	
-	/**
-	 * 配置后台发送消息队列
-	 * @return
-	 */
-	@Bean
-	public Queue webInnerMessageQueue(){
-		return new Queue(ExchangeQueue.Queue.QUEUE_WEB_INNER_MESSAGE, true);
-	}
-	
-	/**
-	 * 将后台发送消息队列与交换机绑定
-	 * @return
-	 */
-	@Bean
-	public Binding bindingWebInnerMessage(){
-		return BindingBuilder.bind(webInnerMessageQueue()).to(webInnerExchange()).with(ExchangeQueue.Queue.QUEUE_WEB_INNER_MESSAGE);
-	}
-	
-	/**
-	 * 配置后台发送短信队列
-	 * @return
-	 */
-	@Bean
-	public Queue webInnerSmsQueue(){
-		return new Queue(ExchangeQueue.Queue.QUEUE_WEB_INNER_SMS, true);
-	}
-	
-	/**
-	 * 后台发送短信队列与交换机绑定
-	 * @return
-	 */
-	@Bean
-	public Binding bindingWebInnerSms(){
-		return BindingBuilder.bind(webInnerSmsQueue()).to(webInnerExchange()).with(ExchangeQueue.Queue.QUEUE_WEB_INNER_SMS);
-	}
 
 }

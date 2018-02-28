@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import redis.RedisServer;
+import com.dzq.base.redis.RedisServer;
 
 import javax.servlet.http.HttpServletRequest;
 

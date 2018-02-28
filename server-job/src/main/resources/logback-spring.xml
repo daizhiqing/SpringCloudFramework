@@ -7,10 +7,10 @@
 		</encoder> </appender> -->
 	<appender name="dailyRollingFileAppender"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<File>/logs/xcqb-server-config.log</File>
+		<File>/logs/server-job/server-job.log</File>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- daily rollover -->
-			<FileNamePattern>/logs/xcqb-server-config.log-%d{yyyy-MM-dd}.%i
+			<FileNamePattern>/logs/server-job/%d{yyyy-MM-dd}/server-job.log-%d{yyyy-MM-dd}.%i
 			</FileNamePattern>
 			<!-- keep 30 days' worth of history -->
 			<maxHistory>365</maxHistory>
@@ -28,6 +28,7 @@
 	<springProfile name="dev">
 		<root level="INFO">
 			<appender-ref ref="CONSOLE" />
+			<appender-ref ref="dailyRollingFileAppender" />
 		</root>
 	</springProfile>
 	<springProfile name="test">
@@ -36,7 +37,7 @@
 			<appender-ref ref="dailyRollingFileAppender" />
 		</root>
 	</springProfile>
-	<springProfile name="production">
+	<springProfile name="pro">
 		<root level="INFO">
 			<appender-ref ref="CONSOLE" />
 			<appender-ref ref="dailyRollingFileAppender" />

@@ -1,0 +1,23 @@
+server:
+  port: 8079
+spring:
+#rabbitmq
+  rabbitmq:
+    host: dev.renrenhua.com
+    virtualHost: myhost
+    port: 5672
+    username: rrh
+    password: Rrh@2017
+#redis
+  redis:
+    host: dev.renrenhua.com
+    port: 6379
+    password: Rrh@2017
+    timeout: 3000
+    pool:
+      max-idle: 100
+      min-idle: 1
+      max-active: 1000
+      max-wait: -1
+
+

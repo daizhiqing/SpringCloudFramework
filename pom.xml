@@ -11,7 +11,9 @@
 		<module>api-gateway</module>
         <module>server-eureka</module>
         <module>server-config</module>
-    </modules>
+		<module>server-job</module>
+		<module>api-example</module>
+	</modules>
 	<packaging>pom</packaging>
 
 	<name>SpringCloudFramework</name>
@@ -93,13 +95,12 @@
 	<profiles>
 		<!-- 本机开发环境，默认激活 -->
 		<profile>
-			<id>host</id>
+			<id>dev</id>
 			<properties>
-				<hostname>dev.renrenhua.com</hostname>
-				<serviceUrl>http://dev.renrenhua.com:4445/eureka/</serviceUrl>
+				<hostname>localhost</hostname>
+				<serviceUrl>http://${hostname}:3333/eureka/</serviceUrl>
 				<profile>dev</profile>
-				<label>develop</label>
-				<bulid.deploy>SNAPSHOT</bulid.deploy>
+				<branch>develop</branch>
 			</properties>
 			<activation>
 				<activeByDefault>true</activeByDefault>

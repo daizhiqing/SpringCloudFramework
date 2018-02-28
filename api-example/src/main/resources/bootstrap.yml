@@ -1,0 +1,36 @@
+#默认本地开发环境dev.renrenhua.com:4445，maven打包传 -Phost 参数
+#dev环境dev.renrenhua.com:3333，maven打包传 -Pdev 参数
+#test环境暂缺，maven打包传 -Ptest 参数
+#pro环境暂缺，maven打包传 -Ppro 参数
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: @serviceUrl@
+    registryFetchIntervalSeconds: 5
+  instance:
+    preferIpAddress: true
+    instance-id: ${spring.cloud.client.ipAddress}:${spring.application.name}:${server.port}
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 90
+    metadata-map:
+      cluster: api
+spring:
+  session:
+    store-type: none
+  application:
+    name: api-example
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        serviceId: config
+      name: apiexample
+      profile: @profile@
+  http:
+    multipart:
+      max-file-size: 20Mb
+      max-request-size: 20Mb
+management:
+  security:
+    enabled: false
+

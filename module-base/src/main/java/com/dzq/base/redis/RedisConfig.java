@@ -1,4 +1,4 @@
-package redis;
+package com.dzq.base.redis;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

@@ -1,3 +1,7 @@
+#默认本地开发环境dev.renrenhua.com:4445，maven打包传 -Phost 参数
+#dev环境dev.renrenhua.com:3333，maven打包传 -Pdev 参数
+#test环境暂缺，maven打包传 -Ptest 参数
+#pro环境暂缺，maven打包传 -Ppro 参数
 eureka:
   client:
     serviceUrl:
@@ -9,31 +13,17 @@ eureka:
     lease-renewal-interval-in-seconds: 10
     lease-expiration-duration-in-seconds: 90
     metadata-map:
-      cluster: api
+      cluster: server
 spring:
   application:
-    name: api-gateway
+    name: server-job
   cloud:
     config:
       discovery:
         enabled: true
         serviceId: config
-      name: apigateway
+      name: job
       profile: @profile@
-  http:
-    multipart:
-      max-file-size: 20Mb
-      max-request-size: 20Mb
-
-zuul:
-  ignoredServices: "*"
-#  ignoredServices: *
-  ignored-patterns: /**/beans,/**/env,/**/refresh,/**/configprops,/**/logfile,/**/restart,/**/pause,/**/metrics,/**/dump,/**/autoconfig,/**/health,/**/hystrix/**
-  add-host-header: true
-  retryable: false
-  routes:
-    #API服务配置项目
-    api-example: /example/**
 
 hystrix:
   command:
@@ -41,9 +31,9 @@ hystrix:
       execution:
         timeout:
           enabled: false
-        isolation:
-          thread:
-            timeoutInMilliseconds: 30000
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 30000
 
 ribbon:
     ReadTimeout: 30000

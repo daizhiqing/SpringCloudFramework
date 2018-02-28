@@ -1,5 +1,6 @@
 package com.dzq.gateway;
 
+import com.dzq.base.Config;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -28,7 +29,7 @@ import org.springframework.web.filter.CorsFilter;
 @EnableZuulProxy
 @EnableHystrix
 @EnableHystrixDashboard
-@ComponentScan
+@ComponentScan(basePackages = Config.BASE_PACKAGE)
 public class ApiGatewayApp {
 
     public static void main(String[] args) {
