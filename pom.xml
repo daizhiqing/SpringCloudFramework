@@ -13,7 +13,9 @@
         <module>server-config</module>
 		<module>server-job</module>
 		<module>api-example</module>
-	</modules>
+        <module>server-ops</module>
+        <module>server-turbine</module>
+    </modules>
 	<packaging>pom</packaging>
 
 	<name>SpringCloudFramework</name>

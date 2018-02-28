@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dzq.example.mapper.VersionMapper">
+  <resultMap id="BaseResultMap" type="com.dzq.example.entity.Version">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="customer_type" jdbcType="INTEGER" property="customerType" />
+    <result column="version_info" jdbcType="VARCHAR" property="versionInfo" />
+    <result column="version_name" jdbcType="VARCHAR" property="versionName" />
+    <result column="version_no" jdbcType="INTEGER" property="versionNo" />
+    <result column="is_force" jdbcType="INTEGER" property="isForce" />
+    <result column="package_url" jdbcType="VARCHAR" property="packageUrl" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, customer_type, version_info, version_name, version_no, is_force, package_url, 
+    create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from w_version_r
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from w_version_r
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dzq.example.entity.Version">
+    insert into w_version_r (id, customer_type, version_info, 
+      version_name, version_no, is_force, 
+      package_url, create_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{customerType,jdbcType=INTEGER}, #{versionInfo,jdbcType=VARCHAR}, 
+      #{versionName,jdbcType=VARCHAR}, #{versionNo,jdbcType=INTEGER}, #{isForce,jdbcType=INTEGER}, 
+      #{packageUrl,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dzq.example.entity.Version">
+    insert into w_version_r
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="customerType != null">
+        customer_type,
+      </if>
+      <if test="versionInfo != null">
+        version_info,
+      </if>
+      <if test="versionName != null">
+        version_name,
+      </if>
+      <if test="versionNo != null">
+        version_no,
+      </if>
+      <if test="isForce != null">
+        is_force,
+      </if>
+      <if test="packageUrl != null">
+        package_url,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="customerType != null">
+        #{customerType,jdbcType=INTEGER},
+      </if>
+      <if test="versionInfo != null">
+        #{versionInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="versionName != null">
+        #{versionName,jdbcType=VARCHAR},
+      </if>
+      <if test="versionNo != null">
+        #{versionNo,jdbcType=INTEGER},
+      </if>
+      <if test="isForce != null">
+        #{isForce,jdbcType=INTEGER},
+      </if>
+      <if test="packageUrl != null">
+        #{packageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dzq.example.entity.Version">
+    update w_version_r
+    <set>
+      <if test="customerType != null">
+        customer_type = #{customerType,jdbcType=INTEGER},
+      </if>
+      <if test="versionInfo != null">
+        version_info = #{versionInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="versionName != null">
+        version_name = #{versionName,jdbcType=VARCHAR},
+      </if>
+      <if test="versionNo != null">
+        version_no = #{versionNo,jdbcType=INTEGER},
+      </if>
+      <if test="isForce != null">
+        is_force = #{isForce,jdbcType=INTEGER},
+      </if>
+      <if test="packageUrl != null">
+        package_url = #{packageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dzq.example.entity.Version">
+    update w_version_r
+    set customer_type = #{customerType,jdbcType=INTEGER},
+      version_info = #{versionInfo,jdbcType=VARCHAR},
+      version_name = #{versionName,jdbcType=VARCHAR},
+      version_no = #{versionNo,jdbcType=INTEGER},
+      is_force = #{isForce,jdbcType=INTEGER},
+      package_url = #{packageUrl,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
