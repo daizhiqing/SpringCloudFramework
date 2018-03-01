@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.*;
+import org.springframework.data.redis.support.atomic.RedisAtomicLong;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
@@ -359,6 +360,23 @@ public class RedisServer {
     public Long remove(String key, int index) {
         ListOperations<String, Object> list = redisTemplate.opsForList();
         return list.remove(key, 0, list.index(key, index));
+    }
+
+    /**
+     * 实现对key自增操作
+     * @param key
+     * @param liveTime
+     * @return
+     */
+    public Long incr(String key, long liveTime) {
+        RedisAtomicLong entityIdCounter = new RedisAtomicLong(key, redisTemplate.getConnectionFactory());
+        Long increment = entityIdCounter.getAndIncrement();
+
+        if ((null == increment || increment.longValue() == 0) && liveTime > 0) {//初始设置过期时间
+            entityIdCounter.expire(liveTime, TimeUnit.SECONDS);
+        }
+
+        return increment;
     }
 
 }
