@@ -1,8 +1,10 @@
-package com.dzq.example.service;
+package com.dzq.example.service.impl;
 
 import com.dzq.example.entity.Version;
 import com.dzq.example.mapper.VersionMapper;
+import com.dzq.example.service.IVersionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,11 +16,13 @@ import org.springframework.stereotype.Service;
  * @ModificationHistory Who When What
  */
 @Service
-public class VersionService {
+@Primary
+public class VersionService implements IVersionService{
 
     @Autowired
     VersionMapper versionMapper;
 
+    @Override
     public Version findVersionById(Integer id){
         return  versionMapper.selectByPrimaryKey(id);
     }
